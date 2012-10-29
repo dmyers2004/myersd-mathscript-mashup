@@ -1,6 +1,8 @@
 <pre>
 <?php
 
+require_once('old/pilot.inc.php');
+
 require_once 'bumoodle/mathscript.class.php';
 require_once 'bumoodle/mathscript_array.php';
 require_once 'bumoodle/mathscript_randomization.php';
@@ -11,11 +13,8 @@ require_once 'bumoodle/mathscript_debug.php';
 require_once 'bumoodle/mathscript_string.php';
 require_once 'bumoodle/mathscript_console.php';
 
-//get the script to execute
-//$script = $_POST['script'];
+$username = 'iceman';
 
-//create a new math evaluator object
-//$program = file('program.txt');
 
 $user['saved'] = null;
 
@@ -38,3 +37,4 @@ if ($state['status'] == 1) {
 $e = null;
 $e = unserialize($user['saved']);
 $e->run('Hello World');
+
