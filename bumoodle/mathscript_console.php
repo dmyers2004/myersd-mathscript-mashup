@@ -24,7 +24,7 @@ class mathscript_console
 	}
 
 	public static function console_input($self, $buffer) {
-
+		save_state();
 	}
 
 	public static function console_print($self, $output) {
@@ -37,10 +37,10 @@ class mathscript_console
 
 	public static function console_goto($self, $label) {
 		if (!array_key_exists($label,$self->labels)) {
-			self::console_printl($self,'Label Not Found '.$label);
+			self::console_error($self,'Label Not Found '.$label);
 		} else {
 			if ($self->jumps + 1 > $self->maxjumps) {
-				self::console_printl($self,'Too Many Jumps Error '.$self->maxjumps);
+				self::console_error($self,'Too Many Jumps Error '.$self->maxjumps);
 			} else {
 				$self->jumps++;
 				$self->pc = $self->labels[$label];
@@ -50,10 +50,10 @@ class mathscript_console
 
 	public static function console_gosub($self, $label) {
 		if (!array_key_exists($label,$self->labels)) {
-			self::console_printl($self,'Label Not Found '.$label);
+			self::console_error($self,'Label Not Found '.$label);
 		} else {
 			if (count($self->gosub_stack) + 1 > $self->maxstack) {
-				self::console_printl($self,'Stack Overflow Error '.$self->maxstack);
+				self::console_error($self,'Stack Overflow Error '.$self->maxstack);
 			} else {
 				array_push($self->gosub_stack, $self->pc + 1);
 				$self->pc = $self->labels[$label];
@@ -73,13 +73,13 @@ class mathscript_console
 		$self->test = false;
 		if ($logic) {
 			$self->test = true;
-			run_line($self,$self->step2);
+			$self->run_line($self->step2);
 		}
 	}
 
 	public static function console_else($self) {
 		if ($self->test == false) {
-			run_line($self,$self->step2);
+			$self->run_line($self->step2);
 		}
 	}
 
@@ -97,6 +97,11 @@ class mathscript_console
 		}
 		$str = str_replace('SKUNKSANDSEALS','#',$str);
 		echo $str;
+	}
+	
+	public static function console_error($self,$msg) {
+		$self->trigger($msg);
+		$self->last_error = $msg;
 	}
 
 }

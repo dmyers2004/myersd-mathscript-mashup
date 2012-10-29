@@ -1,6 +1,6 @@
 // remark
 *label
-input a
+//let b = d + e
 let c = "Don Myers"
 let n = 23 + 1
 
@@ -11,17 +11,21 @@ goto myjump
 *finished
 gosub mygosub
 
-
 if (34 > 1): printl test and 34 is > 1
 else: printl test and 34 is < 1
 
 if (34 > 38): printl test and 34 is > 38
 else: printl test and 34 is < 38
 
+input a
+
 if (34 > 1): gosub istrue
 else: gosub isnot
 
 if (c == "Don Myers"): printl c = Don Myers is true
+
+//goto bogus
+*backfrombogus
 
 printl show debug
 // debug()
@@ -45,4 +49,7 @@ return
 *isnot
 printl this is not true
 return
+
+*xbogus
+goto backfrombogus
 

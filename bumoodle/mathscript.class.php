@@ -1505,7 +1505,7 @@ class MathScript
 
 		function trigger_undefined_variable($varname, $line='')
 		{
-				return $this->trigger('tried to reference the value of '.$varname. ' before it was assigned a value', $line);
+				return $this->trigger('tried to reference the value of "'.$varname. '" before it was assigned a value', $line);
 		}
 
 		// trigger an error, but nicely, if need be
@@ -1525,6 +1525,76 @@ class MathScript
 
 				//return false, indicating failure
 				return false;
+		}
+
+		function after($tag,$searchthis) {
+			if (!is_bool(strpos($searchthis,$tag)))
+			return substr($searchthis,strpos($searchthis,$tag)+strlen($tag));
+		}
+		
+		function before($tag,$searchthis) {
+			return substr($searchthis,0,strpos($searchthis, $tag));
+		}
+		
+		function run_line($line) {
+			if (trim($line) == '') return;
+		
+			$line = ltrim(rtrim($line,chr(10)));
+		
+			$function = strtolower($this->before(' ',$line));
+			if (empty($function)) $function = $line;
+		
+			$this->step2 = $trimmed = ltrim($this->after(' ',$line));
+		
+			if (substr($line,0,4) == 'if (') {
+				$this->step2 = ltrim($this->after('):',$trimmed));
+				$trimmed = $this->before('):',$trimmed).')';
+			}
+		
+			//echo '['.$function.']['.$line.']['.$trimmed.']['.$step2.']'.chr(10);
+		
+			if ($function == '//') {
+				/* remark */
+		
+			} elseif (substr($line,0,1) == ':') {
+				/* label */
+		
+			} elseif ($function == 'input') {
+				$this->e('console_input("'.$trimmed.'")');
+		
+			} elseif ($function == 'print') {
+				$this->e('console_print("'.$trimmed.'")');
+		
+			} elseif ($function == 'printl') {
+				$this->e('console_printl("'.$trimmed.'")');
+		
+			} elseif ($function == 'goto') {
+				$this->e('console_goto("'.$trimmed.'")');
+		
+			} elseif ($function == 'gosub') {
+				$this->e('console_gosub("'.$trimmed.'")');
+		
+			} elseif ($function == 'return') {
+				$this->e('console_return()');
+		
+			} elseif ($function == 'let') {
+				$this->e($trimmed);
+		
+			} elseif ($function == 'if') {
+				$this->e('console_if'.$trimmed);
+		
+			} elseif ($function == 'else:') {
+				$this->e('console_else()');
+		
+			} elseif ($function == 'debug') {
+				$this->e('console_debug()');
+		
+			} elseif ($function == 'end') {
+				$this->e('console_end()');
+		
+			} else {
+		
+			}
 		}
 }
 
@@ -2141,4 +2211,5 @@ class mathscript_basicmath
 		{
 				return atanh($a);
 		}
+
 }
