@@ -44,5 +44,8 @@ class mathscript_string
 			return strlen($str);
 		}
 
+		public static function md5($self, $str) {
+			return md5($str);
+		}
 
 }

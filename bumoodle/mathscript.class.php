@@ -46,8 +46,10 @@ define('MATHSCRIPT_TYPE_RESULT', null);
 //error_reporting(E_ALL);
 //ini_set('display_errors', 1);
 
+/*
 class EvalMath extends MathScript
 { }
+*/
 
 class MathScript
 {

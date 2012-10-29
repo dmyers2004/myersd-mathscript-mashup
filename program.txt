@@ -1,0 +1,40 @@
+r: comment here
+*label1
+r: comment here
+*label2
+a:input
+A:
+t:type command #name
+
+*label
+j:label
+u:label
+e:
+
+m:(b,"value,value,value")
+
+c:y = 1 + 2
+c:b = rand(1,100)
+c:f = (23 > 2)
+
+y:This is copy #b
+n:This is copy #a
+y(23 > 4):This is copy #a
+n(34 < 8):This is copy #a
+
+jy: jump on true
+jn: jump on false
+uy: gosub on true
+un: gosub on false
+
+y(23 > 4):This is a #b test
+n(23 > 4):This is a #c test
+jy(23 = 3):label
+jn(23 = 3):label
+uy(23 = 4):label
+un(23 = 5):label
+
+d: Debug
+
+
+

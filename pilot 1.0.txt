@@ -1,0 +1,94 @@
+R:remarks
+
+A:accept into input buffer $answer or $name
+T:type command $name
+
+*label
+J:label
+U:label (gosub)
+E: (return from gosub - end)
+
+M: match It compares a given list of strings to the last string which was used to hold input from the A command.
+M:(b,"value,value,value");
+
+C: Compute $number = 5 + $number
+
+Y: Yes - like T output if Match = true
+N: No - like T output if Match = false
+JY: jump on true
+JN: jump on false
+UY: gosub on true
+UN: gosub on false
+
+D: Debug
+
+y(23 > 4):This is a #b test
+n(23 > 4):This is a #c test
+jy(23 = 3):label
+jn(23 = 3):label
+uy(23 = 4):label
+un(23 = 5):label
+
+
+	switch ($command) {
+		case 'r': /* remark */
+			/* do nothing */
+		break;
+		case 'a': /* accept */
+			$buffer = trim($options); /* for now just take the options as input */
+		break;
+		case 't': /* output */
+			t_action($e,$options);
+		break;
+		case 'j': /
+			if (!array_key_exists($trimmed,$labels)) {
+				echo 'Label Not Found';
+			} else {
+				$programcounter = $labels[$trimmed];
+			}
+		break;
+		case 'u':
+			if (!array_key_exists($trimmed,$labels)) {
+				echo 'Label Not Found';
+			} else {
+				array_push($stack, $programcounter);
+				$programcounter = $labels[$trimmed];
+			}
+		break;
+		case 'e':
+			$programcounter = array_pop($stack);
+		break;
+		case 'm':
+			$array = explode(',',$trimmed);
+			$test = in_array($buffer,$array));
+		break;
+		case 'c':
+			$e->e($trimmed);
+		break;
+		case 'y':
+			if (!empty($extra)) { 
+				
+			}
+			if ($test) t_action($e,$options);
+		break;
+		case 'n':
+			if (!$test) t_action($e,$options);
+		break;
+		case 'd':
+		
+		break;
+		case 'jy':
+		
+		break;
+		case 'jn':
+		
+		break;
+		case 'uy':
+		
+		break;
+		case 'un':
+		
+		break;
+		default:
+			echo 'Syntax Error: '.$line;
+	}
