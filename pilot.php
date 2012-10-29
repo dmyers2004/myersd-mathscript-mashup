@@ -24,18 +24,17 @@ $program = file('program.txt');
 $e = new MathScript(array('spreadsheet', 'basicmath', 'array', 'randomization', 'binary', 'control', 'legacy', 'debug', 'string', 'console'));
 $e->suppress_errors = true;
 $e->setup($program);
-$e->run();
 
-/*
-$e = null;
-$e = unserialize($user['saved']);
-$e->run();
-*/
+$state = $e->run();
 
-function save_state() {
-	global $e;
-	global $user;
-	
+/* if state is 1 then it's still running */
+if ($state['status'] == 1) {
+	$e->pc++;
+	$e->buffer = $state['buffername'];
 	$user['saved'] = serialize($e);
+	$e->pause = true;
 }
 
+$e = null;
+$e = unserialize($user['saved']);
+$e->run('Hello World');

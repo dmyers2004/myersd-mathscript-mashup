@@ -20,6 +20,8 @@ else: printl test and 34 is < 38
 print What is your name? 
 input a
 
+printl You typed #a!
+
 if (34 > 1): gosub istrue
 else: gosub isnot
 
@@ -29,7 +31,7 @@ if (c == "Don Myers"): printl c = Don Myers is true
 *backfrombogus
 
 printl show debug
-// debug()
+debug
 
 printl ** all done
 end

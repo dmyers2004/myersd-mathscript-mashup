@@ -23,8 +23,10 @@ class mathscript_console
 		}
 	}
 
-	public static function console_input($self, $buffer) {
-		save_state();
+	public static function console_input($self, $buffername) {
+		$self->pause = true;
+		$self->state = 1;
+		$self->buffername = $buffername;
 	}
 
 	public static function console_print($self, $output) {
