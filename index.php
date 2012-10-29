@@ -13,7 +13,7 @@
 
 //require('bumoodle/evalmath.class.php');
 
-//include the math evaluator 
+//include the math evaluator
 require_once 'bumoodle/mathscript.class.php';
 require_once 'bumoodle/mathscript_array.php';
 require_once 'bumoodle/mathscript_randomization.php';
@@ -29,7 +29,7 @@ require_once 'bumoodle/mathscript_console.php';
 
 //create a new math evaluator object
 $e = new MathScript(array('spreadsheet', 'basicmath', 'array', 'randomization', 'binary', 'control', 'legacy', 'debug', 'string', 'console'));
-//$e->suppress_errors = true; 
+//$e->suppress_errors = true;
 
 //$e = new EvalMath();
 
@@ -56,7 +56,6 @@ $e->e('r[1][2] = 2');
 $e->e('s = oneOf(2,4,6,8,10)');
 $e->e('t = md5(j)');
 $e->e('u = user("health")');
-$e->e('y(23 < 8)');
 
 print_r($e->vars());
 var_dump($e->vars());

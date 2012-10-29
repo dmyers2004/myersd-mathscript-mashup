@@ -9,31 +9,63 @@ function before($tag,$searchthis) {
 	return substr($searchthis,0,strpos($searchthis, $tag));
 }
 
-function between($tag,$that,$searchthis) {
-	return before($that,after($tag,$searchthis));
-}
+function run_line($e,$line) {
+	if (trim($line) == '') return;
 
-function left($s,$num) {
-	return substr($s,0,$num);
-}
+	$line = ltrim(rtrim($line,chr(10)));
 
-function right($s,$num) {
-	return substr($s,-$num);
-}
+	$function = strtolower(before(' ',$line));
+	if (empty($function)) $function = $line;
 
-function mid($s,$start,$length) {
-	return substr($s,$start-1,$length);
-}
+	$e->step2 = $trimmed = ltrim(after(' ',$line));
 
-function nthfield($string,$spliton,$number) {
-	$number--;
-	$arr = explode($spliton,$string);
-	return $arr{$number};
-}
+	if (substr($line,0,4) == 'if (') {
+		$e->step2 = ltrim(after('):',$trimmed));
+		$trimmed = before('):',$trimmed).')';
+	}
 
-function instr($source,$find,$startat=0) {
-	 $x = strpos($source,$find,$startat);
-	 if ($x === false) $x = 0;
-	 else $x++;
-	 return $x;
+	//echo '['.$function.']['.$line.']['.$trimmed.']['.$step2.']'.chr(10);
+
+	if ($function == '//') {
+		/* remark */
+
+	} elseif (substr($line,0,1) == ':') {
+		/* label */
+
+	} elseif ($function == 'input') {
+		$e->e('console_input('.$trimmed.')');
+
+	} elseif ($function == 'print') {
+		$e->e('console_print("'.$trimmed.'")');
+
+	} elseif ($function == 'printl') {
+		$e->e('console_printl("'.$trimmed.'")');
+
+	} elseif ($function == 'goto') {
+		$e->e('console_goto("'.$trimmed.'")');
+
+	} elseif ($function == 'gosub') {
+		$e->e('console_gosub("'.$trimmed.'")');
+
+	} elseif ($function == 'return') {
+		$e->e('console_return()');
+
+	} elseif ($function == 'let') {
+		$e->e($trimmed);
+
+	} elseif ($function == 'if') {
+		$e->e('console_if'.$trimmed);
+
+	} elseif ($function == 'else:') {
+		$e->e('console_else()');
+
+	} elseif ($function == 'debug') {
+		$e->e('console_debug()');
+
+	} elseif ($function == 'end') {
+		$e->e('console_end()');
+
+	} else {
+
+	}
 }

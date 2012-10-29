@@ -1,40 +1,48 @@
-r: comment here
-*label1
-r: comment here
-*label2
-a:input
-A:
-t:type command #name
-
+// remark
 *label
-j:label
-u:label
-e:
+input a
+let c = "Don Myers"
+let n = 23 + 1
 
-m:(b,"value,value,value")
-
-c:y = 1 + 2
-c:b = rand(1,100)
-c:f = (23 > 2)
-
-y:This is copy #b
-n:This is copy #a
-y(23 > 4):This is copy #a
-n(34 < 8):This is copy #a
-
-jy: jump on true
-jn: jump on false
-uy: gosub on true
-un: gosub on false
-
-y(23 > 4):This is a #b test
-n(23 > 4):This is a #c test
-jy(23 = 3):label
-jn(23 = 3):label
-uy(23 = 4):label
-un(23 = 5):label
-
-d: Debug
+printl the value of c is #c
+printl this is a test
+printl this is also a test
+goto myjump
+*finished
+gosub mygosub
 
 
+if (34 > 1): printl test and 34 is > 1
+else: printl test and 34 is < 1
+
+if (34 > 38): printl test and 34 is > 38
+else: printl test and 34 is < 38
+
+if (34 > 1): gosub istrue
+else: gosub isnot
+
+if (c == "Don Myers"): printl c = Don Myers is true
+
+printl show debug
+// debug()
+
+printl ** all done
+end
+
+*mygosub
+printl a b #n 
+return
+
+*myjump
+printl line 27
+printl test
+goto finished
+
+*istrue
+printl this is true
+return
+
+*isnot
+printl this is not true
+return
 

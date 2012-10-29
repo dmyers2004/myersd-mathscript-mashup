@@ -12,22 +12,22 @@
 
 	SYNOPSIS
 		<?
-		  include('evalmath.class.php');
-		  $m = new EvalMath;
-		  // basic evaluation:
-		  $result = $m->evaluate('2+2');
-		  // supports: order of operation; parentheses; negation; built-in functions
-		  $result = $m->evaluate('-8(5/2)^2*(1-sqrt(4))-8');
-		  // create your own variables
-		  $m->evaluate('a = e^(ln(pi))');
-		  // or functions
-		  $m->evaluate('f(x,y) = x^2 + y^2 - 2x*y + 1');
-		  // and then use them
-		  $result = $m->evaluate('3*f(42,a)');
+			include('evalmath.class.php');
+			$m = new EvalMath;
+			// basic evaluation:
+			$result = $m->evaluate('2+2');
+			// supports: order of operation; parentheses; negation; built-in functions
+			$result = $m->evaluate('-8(5/2)^2*(1-sqrt(4))-8');
+			// create your own variables
+			$m->evaluate('a = e^(ln(pi))');
+			// or functions
+			$m->evaluate('f(x,y) = x^2 + y^2 - 2x*y + 1');
+			// and then use them
+			$result = $m->evaluate('3*f(42,a)');
 		?>
 
 	DESCRIPTION
-		Use the EvalMath class when you want to evaluate mathematical expressions 
+		Use the EvalMath class when you want to evaluate mathematical expressions
 		from untrusted sources.  You can define your own variables and functions,
 		which are stored in the object.  Try it, it's fun!
 
@@ -174,11 +174,11 @@
 			$expr = trim(strtolower($expr));
 
 			$ops   = array('+', '-', '*', '/', '^', '_');
-			$ops_r = array('+'=>0,'-'=>0,'*'=>0,'/'=>0,'^'=>1); // right-associative operator?  
+			$ops_r = array('+'=>0,'-'=>0,'*'=>0,'/'=>0,'^'=>1); // right-associative operator?
 			$ops_p = array('+'=>0,'-'=>0,'*'=>1,'/'=>1,'_'=>1,'^'=>2); // operator precedence
 
 			$expecting_op = false; // we use this in syntax-checking the expression
-								   // and determining when a - is a negation
+										// and determining when a - is a negation
 
 			if (preg_match("/[^\w\s+*^\/()\.,-<>=]/", $expr, $matches)) { // make sure the characters are all good
 				return $this->trigger("illegal character '{$matches[0]}'");
@@ -192,7 +192,7 @@
 				if ($op == '-' and !$expecting_op) { // is it a negation instead of a minus?
 					$stack->push('_'); // put a negation on the stack
 					$index++;
-				} elseif ($op == '_') { // we have to explicitly deny this, because it's legal on the stack 
+				} elseif ($op == '_') { // we have to explicitly deny this, because it's legal on the stack
 					return $this->trigger("illegal character '_'"); // but not in the input expression
 				//===============
 				} elseif ((in_array($op, $ops) or $ex) and $expecting_op) { // are we putting an operator on the stack?
@@ -230,7 +230,7 @@
 					$index++;
 				//===============
 				} elseif ($op == ',' and $expecting_op) { // did we just finish a function argument?
-					while (($o2 = $stack->pop()) != '(') { 
+					while (($o2 = $stack->pop()) != '(') {
 						if (is_null($o2)) return $this->trigger("unexpected ','"); // oops, never had a (
 						else $output[] = $o2; // pop the argument expression stuff and push onto the output
 					}
@@ -279,11 +279,11 @@
 						break;
 					}
 				}
-				while (substr($expr, $index, 1) == ' ') { // step the index past whitespace (pretty much turns whitespace 
+				while (substr($expr, $index, 1) == ' ') { // step the index past whitespace (pretty much turns whitespace
 					$index++;                             // into implicit multiplication if no operator is there)
 				}
 
-			} 
+			}
 			while (!is_null($op = $stack->pop())) { // pop everything off the stack and push onto output
 				if ($op == '(') return $this->trigger("expecting ')'"); // if there are (s on the stack, ()s were unbalanced
 				$output[] = $op;
@@ -316,11 +316,11 @@
 						case '^':
 							$stack->push(pow($op1, $op2)); break;
 						case '>':
-						     $stack->push($op1 > $op2); break;
+									$stack->push($op1 > $op2); break;
 						case '<':
-						     $stack->push($op1 < $op2); break;
+									$stack->push($op1 < $op2); break;
 						case '=':
-						     $stack->push($op1 == $op2); break;					}
+									$stack->push($op1 == $op2); break;          }
 				// if the token is a unary operator, pop one value off the stack, do the operation, and push it back on
 				} elseif ($token == "_") {
 					$stack->push(-1*$stack->pop());

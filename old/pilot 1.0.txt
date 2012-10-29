@@ -1,3 +1,17 @@
+// remark
+:label
+input(a)
+type("")
+jump label" = jump("label")
+gosub label = gosub("label")
+return = return()
+let c = 23 + 1
+if() jump/gosub label = if() + (global $buffer)
+else() jump/gosub label = if() + (global $buffer)
+debug()
+
+
+
 R:remarks
 
 A:accept into input buffer $answer or $name
