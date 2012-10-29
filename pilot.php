@@ -17,26 +17,25 @@ require_once 'bumoodle/mathscript_console.php';
 //create a new math evaluator object
 //$program = file('program.txt');
 
-$user['script'] = file('program.txt');
-$user['pc'] = 0;
 $user['saved'] = null;
+
+$program = file('program.txt');
 
 $e = new MathScript(array('spreadsheet', 'basicmath', 'array', 'randomization', 'binary', 'control', 'legacy', 'debug', 'string', 'console'));
 $e->suppress_errors = true;
-$e->setup($user['script']);
+$e->setup($program);
+$e->run();
 
-/* now run program */
-for ($e->pc;$e->pc <= $e->lines;$e->pc++) {
-	$e->run_line($user['script'][$e->pc]);
-	//if (!empty($user['saved'])) {
-		if ($e->last_error) die($e->last_error.' Line: '.($e->pc + 1));
-	//}
-}
-
-//echo serialize($e);
+/*
+$e = null;
+$e = unserialize($user['saved']);
+$e->run();
+*/
 
 function save_state() {
 	global $e;
+	global $user;
+	
 	$user['saved'] = serialize($e);
 }
 

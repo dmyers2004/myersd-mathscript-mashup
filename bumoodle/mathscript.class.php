@@ -120,6 +120,7 @@ class MathScript
 		public $maxstack = 64;
 		public $jumps = 0;
 		public $maxjumps = 99;
+		public $script = '';
 
 		/**
 			* User variables defined at runtime.
@@ -170,7 +171,17 @@ class MathScript
 					$this->labels[trim(substr($line,1))] = $linenumber;
 				}
 			}
+			
 			$this->lines = count($program);
+			$this->script = $program;
+		}
+
+		function run() {
+			for ($this->pc;$this->pc <= $this->lines;$this->pc++) {
+				$this->run_line($this->script[$this->pc]);
+				if ($this->last_error) die($this->last_error.' Line: '.($this->pc + 1));
+				if ($this->pause) return;
+			}
 		}
 
 		/**

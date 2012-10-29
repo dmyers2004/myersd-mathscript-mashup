@@ -17,6 +17,7 @@ else: printl test and 34 is < 1
 if (34 > 38): printl test and 34 is > 38
 else: printl test and 34 is < 38
 
+print What is your name? 
 input a
 
 if (34 > 1): gosub istrue
