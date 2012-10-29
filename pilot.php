@@ -15,15 +15,18 @@ require_once 'bumoodle/mathscript_console.php';
 
 $username = 'iceman';
 
+// load add the programs that aren't waiting on a buffer 
 
-$user['saved'] = null;
+// run them
 
-$program = file('program.txt');
+// load the programs that are waiting for a buffer in descending order 20-19-18-17 since that last one aded is the one waiting
 
-$e = new MathScript(array('spreadsheet', 'basicmath', 'array', 'randomization', 'binary', 'control', 'legacy', 'debug', 'string', 'console'));
-$e->suppress_errors = true;
-$e->setup($program);
+// get the buffer and pass it to the program
 
+// continue with the each time until they are all done
+
+
+$e = load('programs/program.exe');
 $state = $e->run();
 
 /* if state is 1 then it's still running */
@@ -34,7 +37,5 @@ if ($state['status'] == 1) {
 	$e->pause = true;
 }
 
-$e = null;
-$e = unserialize($user['saved']);
-$e->run('Hello World');
-
+//$restart = unserialize($user['saved']);
+//$restart->run('Hello World');

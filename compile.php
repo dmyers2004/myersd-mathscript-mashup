@@ -20,5 +20,5 @@ foreach ($files as $f) {
 	$e = new MathScript(array('spreadsheet', 'basicmath', 'array', 'randomization', 'binary', 'control', 'legacy', 'debug', 'string', 'console'));
 	$e->suppress_errors = true;
 	$e->setup($program);
-	file_put_contents('programs/'.substr(basename($f),0,-4).'.exe',myencrypt(base64_encode(serialize($e))));
+	save('programs/'.substr(basename($f),0,-4).'.exe',$e);
 }
