@@ -1,3 +1,27 @@
+/*
+switch($command) {
+	case 'login':
+		$json['output'] = 'Welcome to the Gibson'.chr(10);	
+	break;
+	case 'iframe':
+		$json['output'] = '<iframe src="http://www.apple.com" width="400" width="600" frameborder="0"></iframe>';
+	break;
+	
+	//default:
+		//$json['output'] = shell_exec($_POST['command']." 2>&1");
+
+	case 'test':
+	
+	break;
+
+}
+*/
+
+//$json['local'] = true;
+//$json['code'] = '/*alert("Bing! '.date('Y.m.d H:i:s').'");*/ hc.printl("This is a test");hc.clearTimer("binger");';
+//$json['timer'] = 5 * 1000;
+//$json['timername'] = 'binger';
+
 // remark
 :label
 input(a)

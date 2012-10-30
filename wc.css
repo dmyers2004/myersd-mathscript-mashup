@@ -1,0 +1,24 @@
+body {  background-color: #000;  margin: 0;
+	font: bold 13px/16px "Courier New", Courier, mono;
+	color: white;
+	padding: 5px 5px 0;
+}#outputbox {	white-space: pre;
+  overflow: hidden;  margin: 0;  padding: 0;
+}
+
+#carrot {
+	padding-right: 8px;
+}
+
+#carrot.hide {
+	display: none;
+}
+#input {
+	padding: 0;
+	border: 0;
+	margin: -12px 0 0 0;
+	font: bold 13px/13px "Courier New", Courier, mono;
+	background-color: #000;
+	color: white;  height: 13px;
+	width: 98%;
+	outline-style:none;}

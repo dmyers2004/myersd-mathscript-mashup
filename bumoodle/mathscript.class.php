@@ -122,6 +122,7 @@ class MathScript
 		public $maxjumps = 99;
 		public $script = '';
 		public $state = 0;
+		public $host_url = '';
 
 		/**
 			* User variables defined at runtime.

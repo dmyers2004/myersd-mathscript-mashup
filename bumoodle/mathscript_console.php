@@ -12,6 +12,13 @@
 class mathscript_console
 {
 
+	/*
+	credits, cpu, memory, hd
+	server_pwd, server_url, server_ip
+	username
+	server_user_home
+	server_user_path
+	*/
 	public static function user($self, $name, $value='SKUNKSANDSEALS')
 	{
 		global $user;
@@ -23,7 +30,16 @@ class mathscript_console
 		}
 	}
 
+	public static function console_file_put($self,$file,$content) {
+		// put_file "filename",content
+	}
+	
+	public static function console_file_get($self,$file) {
+		// get_file "filename"
+	}
+	
 	public static function console_input($self, $buffername) {
+		echo chr(10);
 		$self->pause = true;
 		$self->state = 1;
 		$self->buffername = $buffername;
